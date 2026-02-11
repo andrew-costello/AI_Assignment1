@@ -111,28 +111,13 @@ def run_ga(N, K, M, E):
     generations = 500 # Number of generations to run.
     crossover_rate = 0.8 # Probability of crossover.
     mutation_rate = 0.05 # Probability of mutation.
-    tournament_size = 5 # Number of candidates in tournament selection.
+    tournament_size = 3 # Number of candidates in tournament selection.
 
     population = initialize_population(pop_size, N, K) # Initialize the population with random solutions.
 
     best_solution = None
     best_fitness = float('inf')
     fitness_history = [] # To track fitness over generations.
-
-    # Tournament selection for one parent
-    def pick_parent():
-        candidates = random.sample(population, tournament_size)
-        best = candidates[0]
-        best_fitness = evaluate_fitness(best, E, N, M)
-
-        for sol in candidates[1:]:
-            fitness = evaluate_fitness(sol, E, N, M)
-
-            if fitness < best_fitness:
-                best = sol
-                best_fitness = fitness
-
-        return best
     
     for _ in range(generations):
         # Find the best solution in the current population.
@@ -147,8 +132,7 @@ def run_ga(N, K, M, E):
         new_population = [best_solution[:]] # Elitism: carry the best solution to the next generation.
 
         while len(new_population) < pop_size:
-            parent1 = pick_parent() # Select the first parent using tournament selection.
-            parent2 = pick_parent() # Select the second parent using tournament selection.
+            parent1, parent2 = select_parents(population, E, N, M, tournament_size) # Select parents using tournament selection.
             child = crossover(parent1, parent2, crossover_rate) # Create a child through crossover.
             child = mutate(child, K, mutation_rate) # Mutate the child solution.
             new_population.append(child) # Add the child to the new population.

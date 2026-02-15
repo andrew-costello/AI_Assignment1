@@ -1,5 +1,8 @@
 import random
+import statistics
 import matplotlib.pyplot as plt
+import time
+
 
 N = 0 # Number of exams to be scheduled.
 K = 0 # Number of available time slots.
@@ -105,13 +108,9 @@ def mutate(solution, K, mutation_rate):
         solution[exam] = new_time_slot # Mutate the solution by changing the time slot for the selected exam.
 
     return solution
-def run_ga(N, K, M, E):
-    # Main genetic algorithm loop.
-    pop_size = 100 # Population size.
-    generations = 500 # Number of generations to run.
-    crossover_rate = 0.8 # Probability of crossover.
-    mutation_rate = 0.05 # Probability of mutation.
-    tournament_size = 3 # Number of candidates in tournament selection.
+def run_ga(N, K, M, E, pop_size, generations, crossover_rate, mutation_rate, tournament_size):
+
+
 
     population = initialize_population(pop_size, N, K) # Initialize the population with random solutions.
 
@@ -175,22 +174,294 @@ def count_soft_violations(solution, E, N, M):
     return soft
 
 def main():
-    filename = 'small-2.txt' # Input file containing the problem instance.
+    # pop_size = 100  # Population size.
+    # generations = 500  # Number of generations to run.
+    # crossover_rate = 0.8  # Probability of crossover.
+    # mutation_rate = 0.05  # Probability of mutation.
+    # tournament_size = 3  # Number of candidates in tournament selection.
+    #
+    # filename = 'small-2.txt' # Input file containing the problem instance.
+    # files= ['test_case1.txt', 'small-2.txt', 'medium-1.txt']
+    # run_count = 1
+    # for file in files:
+    #     print("\n------Run", run_count , "with file:", file,"------")
+    #     run_count= run_count + 1
+    #     start_time = time.perf_counter()
+    #     N, K, M, E = read_instance(filename) # Read the problem instance from the file.
+    #     best_solution, best_fitness, fitness_history = run_ga(N, K, M, E,pop_size, generations, crossover_rate, mutation_rate, tournament_size) # Run the genetic algorithm to find the best solution.
+    #     hard_violations = count_hard_violations(best_solution, E, N, M) # Count the number of hard constraint violations in the best solution.
+    #     soft_violations = count_soft_violations(best_solution, E, N, M) # Count the number of soft constraint violations in the best solution.
+    #     end_time = time.perf_counter()
+    #     runtime = end_time - start_time
+    #     print("Best Timetable:", best_solution) # Print the best timetable found.
+    #     print("Best Fitness:", best_fitness) # Print the fitness of the best solution.
+    #     print("Hard Violations:", hard_violations)
+    #     print("Soft Violations:", soft_violations)
+    #     print("Runtime:", runtime)
+    #
+    #     plt.plot(fitness_history)
+    #     plt.xlabel("Generation")
+    #     plt.ylabel("Best fitness")
+    #     plt.title("GA Fitness Over Generations on " + file)
+    #     plt.show()
 
-    N, K, M, E = read_instance(filename) # Read the problem instance from the file.
-    best_solution, best_fitness, fitness_history = run_ga(N, K, M, E) # Run the genetic algorithm to find the best solution.
-    hard_violations = count_hard_violations(best_solution, E, N, M) # Count the number of hard constraint violations in the best solution.
-    soft_violations = count_soft_violations(best_solution, E, N, M) # Count the number of soft constraint violations in the best solution.
 
-    print("Best Timetable:", best_solution) # Print the best timetable found.
-    print("Best Fitness:", best_fitness) # Print the fitness of the best solution.
-    print("Hard Violations:", hard_violations)
-    print("Soft Violations:", soft_violations)
 
+#
+#     pop_size_list = [50, 100, 200]
+#     crossover_rate_list = [0.7, 0.8, 0.9]
+#     mutation_rate=0.05
+#     generations = 500  # Number of generations to run.
+#     tournament_size = 3  # Number of candidates in tournament selection.
+#
+#     filename = 'small-2.txt'  # Input file containing the problem instance.
+#     files= ['test_case1.txt', 'small-2.txt', 'medium-1.txt']
+#
+#     best_pop_size = 0
+#     best_crossover_rate = 0
+#     best_final_fitness = float('inf')
+#
+#     run_count=0
+#
+#     best_soft_violations = 0
+#     best_hard_violations = 0
+#     best_timetable = []
+#
+#     results=[]
+#     repeats=1
+#
+#     for pop_size in pop_size_list:
+#         for crossover_rate in crossover_rate_list:
+#                 run_count += 1
+#                 runtimes = []
+#                 fitnesses = []
+#
+#                 start_time = time.perf_counter()
+#
+#                 N, K, M, E = read_instance(filename) # Read the problem instance from the file.
+#                 best_solution, best_fitness, fitness_history = run_ga(N, K, M, E,pop_size, generations, crossover_rate, mutation_rate, tournament_size) # Run the genetic algorithm to find the best solution.
+#                 hard_violations = count_hard_violations(best_solution, E, N, M) # Count the number of hard constraint violations in the best solution.
+#                 soft_violations = count_soft_violations(best_solution, E, N, M) # Count the number of soft constraint violations in the best solution.
+#                 end_time = time.perf_counter()
+#                 runtime = end_time - start_time
+#
+#                 if best_fitness< best_final_fitness:
+#                     best_final_fitness = best_fitness
+#                     best_pop_size = pop_size
+#                     best_crossover_rate = crossover_rate
+#                     best_soft_violations = soft_violations
+#                     best_hard_violations = hard_violations
+#                     best_timetable= best_solution
+#
+#                 results.append((pop_size, crossover_rate,best_fitness,hard_violations,soft_violations,runtime))
+#                 print("\n------Run", run_count , "with pop_size:", pop_size, "crossover_rate:", crossover_rate,"------")
+#                 print("Best Timetable:", best_solution) # Print the best timetable found.
+#                 print("Best Fitness:", best_fitness) # Print the fitness of the best solution.
+#                 print("Hard Violations:", hard_violations)
+#                 print("Soft Violations:", soft_violations)
+#                 print("Runtime:", runtime)
+#
+#     print("\n-------All RESULTS-------")
+#     for pop_size, crossover_rate, fitness, hard_violations, soft_violations, runtime in results:
+#         print(f"Pop Size: {pop_size}, Crossover Rate: {crossover_rate}, Mutation Rate: {mutation_rate}, Fitness: {fitness}, Hard Violations: {hard_violations} Soft Violations: {soft_violations}, Runtime: {runtime}")
+#
+#
+#     print("\n-------Best Combo-------")
+#     print("Best Population Size:", best_pop_size)
+#     print("Best Crossover Rate:", best_crossover_rate)
+#     print("Best Mutation Rate:", mutation_rate)
+#     print("Best Fitness:", best_final_fitness)
+#     print("Best Hard Violations:", best_hard_violations)
+#     print("Best Soft Violations:", best_soft_violations)
+#     print("Best Timetable:", best_timetable)
+#
+#     N, K, M, E = read_instance(filename)
+#     best_solution, best_fitness, fitness_history = run_ga(N, K, M, E,best_pop_size, generations, best_crossover_rate, mutation_rate, tournament_size) # Run the genetic algorithm to find the best solution.
+#     plt.plot(fitness_history)
+#     plt.xlabel("Generation")
+#     plt.ylabel("Best fitness")
+#     plt.title("GA Fitness Over Generations with Best Parameters")
+#     plt.show()
+
+    parameter_settings = [
+
+        {  # Setting A
+            "name": "Conservative",
+            "pop_size": 70,
+            "generations": 400,
+            "crossover_rate": 0.7,
+            "mutation_rate": 0.03,
+            "tournament_size": 5
+        },
+
+        {  # Setting B
+            "name": "Balanced",
+            "pop_size": 100,
+            "generations": 500,
+            "crossover_rate": 0.8,
+            "mutation_rate": 0.05,
+            "tournament_size": 3
+        },
+
+        {  # Setting C
+            "name": "Exploratory",
+            "pop_size": 150,
+            "generations": 600,
+            "crossover_rate": 0.9,
+            "mutation_rate": 0.1,
+            "tournament_size": 2
+        }
+    ]
+
+    filename="medium-1.txt"
+    repeat=3
+    run_count=0
+    results=[]
+    files=["test_case1.txt","small-2.txt", "medium-1.txt"]
+
+    best_run_parameters=""
+    best_runtime=0
+    best_hard_violations=0
+    best_soft_violations=0
+    best_run_fitness = float('inf')
+
+    best_mean_parameters=""
+    best_mean_fitness = float("inf")
+    best_std_fitness = float("inf")
+    best_mean_runtime = float("inf")
+    best_std_runtime = float("inf")
+
+    worst_mean_parameters = ""
+    worst_mean_fitness = float("-inf")
+    worst_std_fitness = float("-inf")
+    worst_mean_runtime = float("-inf")
+    worst_std_runtime = float("-inf")
+
+
+
+    print("\n------Running file:", filename,"------")
+    for params in parameter_settings:
+        parameter_setting_name=params["name"]
+        print("\n---- Running Setting:",parameter_setting_name,"----")
+
+        runtimes = []
+        fitnesses = []
+
+        for i in range(repeat):
+            run = i + 1
+            print("\n---- Run :", run, "----")
+
+
+
+
+            pop_size = params["pop_size"]
+            generations = params["generations"]
+            crossover_rate = params["crossover_rate"]
+            mutation_rate = params["mutation_rate"]
+            tournament_size = params["tournament_size"]
+
+            start_time = time.perf_counter()
+
+            N, K, M, E = read_instance(filename) # Read the problem instance from the file.
+            best_solution, best_fitness, fitness_history = run_ga(N, K, M, E,pop_size, generations, crossover_rate, mutation_rate, tournament_size) # Run the genetic algorithm to find the best solution.
+            hard_violations = count_hard_violations(best_solution, E, N, M) # Count the number of hard constraint violations in the best solution.
+            soft_violations = count_soft_violations(best_solution, E, N, M) # Count the number of soft constraint violations in the best solution.
+            end_time = time.perf_counter()
+            runtime = end_time - start_time
+
+            if best_fitness < best_run_fitness:
+                best_run_fitness = best_fitness
+                best_run_parameters = params["name"]
+                best_runtime=runtime
+                best_hard_violations=hard_violations
+                best_soft_violations=soft_violations
+
+            fitnesses.append(best_fitness)
+            runtimes.append(runtime)
+
+            results.append(( parameter_setting_name,run,best_fitness,hard_violations,soft_violations,runtime))
+
+            print("Best Timetable:", best_solution) # Print the best timetable found.
+            print("Best Fitness:", best_fitness) # Print the fitness of the best solution.
+            print("Hard Violations:", hard_violations)
+            print("Soft Violations:", soft_violations)
+            print("Runtime:", runtime)
+
+        if len(fitnesses) > 1:
+            fitness_std = statistics.stdev(fitnesses)
+            runtime_std = statistics.stdev(runtimes)
+        else:
+            fitness_std = 0
+            runtime_std = 0
+        fitness_mean = statistics.mean(fitnesses)
+        runtime_mean = statistics.mean(runtimes)
+
+        if (fitness_mean < best_mean_fitness) or (
+                fitness_mean == best_mean_fitness and fitness_std < best_std_fitness
+        ):
+            best_mean_parameters = parameter_setting_name
+            best_mean_fitness = fitness_mean
+            best_std_fitness = fitness_std
+            best_mean_runtime = runtime_mean
+            best_std_runtime = runtime_std
+
+        if (fitness_mean > worst_mean_fitness) or (
+                fitness_mean == worst_mean_fitness and fitness_std > worst_std_fitness
+        ):
+            worst_mean_parameters = parameter_setting_name
+            worst_mean_fitness = fitness_mean
+            worst_std_fitness = fitness_std
+            worst_mean_runtime = runtime_mean
+            worst_std_runtime = runtime_std
+
+        print("\nStats for", parameter_setting_name)
+        print("Average Fitness:", fitness_mean)
+        print("Fitness Std Dev:", fitness_std)
+        print("Average Runtime:", runtime_mean)
+        print("Runtime Std Dev:", runtime_std)
+
+
+    print("\n-------All RESULTS-------")
+
+    for  parameter_setting_name, run, fitness, hard_violations, soft_violations, runtime in results:
+        print(f"Params Setting: {parameter_setting_name}, Run: {run } Fitness: {fitness}, Hard Violations: {hard_violations} Soft Violations: {soft_violations}, Runtime: {runtime}")
+
+    print ("\n-------Best Run-------")
+    print("Best Run Setting:", best_run_parameters)
+    print("Best Run Fitness:", best_run_fitness)
+    print("Best Run Runtime:", best_runtime)
+    print("Best Run Hard Violations:", best_hard_violations)
+    print("Best Run Soft Violations:", best_soft_violations)
+
+
+    print("\n-----BEST PARAMETER SETTING-----")
+    print("Best Setting:", best_mean_parameters)
+    print("Mean Fitness:", best_mean_fitness)
+    print("Fitness Std Dev:", best_std_fitness)
+    print("Mean Runtime:", best_mean_runtime)
+    print("Runtime Std Dev:", best_std_runtime)
+
+    print("\n-----WORST PARAMETER SETTING-----")
+    print("Worst Setting:", worst_mean_parameters)
+    print("Mean Fitness:", worst_mean_fitness)
+    print("Fitness Std Dev:", worst_std_fitness)
+    print("Mean Runtime:", worst_mean_runtime)
+    print("Runtime Std Dev:", worst_std_runtime)
+
+    best_params = next(param for param in parameter_settings if param["name"] == best_mean_parameters)
+
+    best_pop_size = best_params["pop_size"]
+    best_generations = best_params["generations"]
+    best_crossover_rate = best_params["crossover_rate"]
+    best_mutation_rate = best_params["mutation_rate"]
+    best_tournament_size = best_params["tournament_size"]
+
+    N, K, M, E = read_instance(filename)
+    best_solution, best_fitness, fitness_history = run_ga(N, K, M, E,best_pop_size, best_generations, best_crossover_rate, best_mutation_rate, best_tournament_size) # Run the genetic algorithm to find the best solution.
     plt.plot(fitness_history)
     plt.xlabel("Generation")
     plt.ylabel("Best fitness")
-    plt.title("GA Fitness Over Generations")
+    plt.title(f"GA Fitness Over Generations (Best Setting: {best_mean_parameters})")
     plt.show()
 
 if __name__ == "__main__":

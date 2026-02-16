@@ -238,13 +238,10 @@ def main():
 
         runtimes = []
         fitnesses = []
-
+        # repeat the genetic algorithm multiple times for each parameter setting to get a more reliable estimate of its performance
         for i in range(repeat):
             run = i + 1
             print("\n---- Run :", run, "----")
-
-
-
 
             pop_size = params["pop_size"]
             generations = params["generations"]
@@ -340,6 +337,7 @@ def main():
     print("Mean Runtime:", worst_mean_runtime)
     print("Runtime Std Dev:", worst_std_runtime)
 
+    # graph a run of the genetic algorithm using the best parameter setting to visualize how the fitness of the best solution evolves over generations with the best parameter setting.
     best_params = next(param for param in parameter_settings if param["name"] == best_mean_parameters)
 
     best_pop_size = best_params["pop_size"]

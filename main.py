@@ -207,14 +207,14 @@ def main():
     ]
 
     # this filename variable is changed based on what file is needed to be tested.
-    filename="medium-1.txt"
-    repeat=3
-    results=[]
+    filename = "medium-1.txt"
+    repeat = 3
+    results = []
 
-    best_run_parameters=""
-    best_runtime=0
-    best_hard_violations=0
-    best_soft_violations=0
+    best_run_parameters = ""
+    best_runtime = 0
+    best_hard_violations = 0
+    best_soft_violations = 0
     best_run_fitness = float('inf')
 
     best_mean_parameters=""

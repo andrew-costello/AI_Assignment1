@@ -9,13 +9,13 @@ E is the enrollment Matrix
 ## Key Functions
 
 ### def read_instance(file_name)
-This function reads in the test case file and returns the values for N, K, M E.
+This function reads in the test case file and returns the values for N, K, M, E.
 
 ### def initialize_population(pop_size, N, K)
-This function inialises the population of random timetables.
+This function initialises the population of random timetables.
 
 ### def evaluate_fitness(solution, E, N, M)
-Takes in one timetable solution alongside E, N, and K and counts up the amount of soft and hard violations to produce a fitness score.
+Takes in one timetable solution alongside E, N, and M and counts up the amount of soft and hard violations to produce a fitness score.
 
 ### def select_parents(population, E, N, M, tournament_size)
 This function uses an inner tournament function to evaluate the fitness of candidate solutions in the selected tournament size.
@@ -45,6 +45,6 @@ Runs the genetic algorithim using all the funtions previously mentioned.
 
 
 ### def main()
-Sets up three different parameter settings Conservative, Balanced and Exploratory. Changing the filename variabel is how someone chooses which testcase to run. The code runs the slected test case with with each parameter setting three times in order to evaluate consistency. The testing captures the mean fitness and standard deviation for each run. The stats for best singular run alongside the overall best and worst parameter settings are all printed. A plot of generations over best fitness is then made
+Sets up three different parameter settings Conservative, Balanced and Exploratory. Changing the filename variabel is how someone chooses which testcase to run. The code runs the slected test case with each parameter setting three times in order to evaluate consistency. The testing captures the mean fitness and standard deviation for each run. The stats for best singular run alongside the overall best and worst parameter settings are all printed. A plot of generations over best fitness is then made
 
 

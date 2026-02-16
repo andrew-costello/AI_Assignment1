@@ -108,6 +108,7 @@ def mutate(solution, K, mutation_rate):
         solution[exam] = new_time_slot # Mutate the solution by changing the time slot for the selected exam.
 
     return solution
+
 def run_ga(N, K, M, E, pop_size, generations, crossover_rate, mutation_rate, tournament_size):
 
 

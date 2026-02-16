@@ -1,6 +1,6 @@
 ## Problem Definitions
 N is the number of exams
-K is thee number of slots
+K is the number of slots
 M is the number of students
 E is the enrollment Matrix
 
@@ -22,16 +22,27 @@ This function uses an inner tournament function to evaluate the fitness of candi
 This function returns two parent candidates.
 
 ### def crossover(parent1, parent2, crossover_rate)
-Takes in tow parents and the crossover rate.
+Takes in two parents and the crossover rate.
 Uses a random single point cross over to find the crossover point.
-A child is only a combination if both its parents if the crossover rate is met if not it is a copy of parent1.
+A child is only a combination of both its parents if the crossover rate is met if not it is a copy of parent1.
 
 ### def mutate(solution, K, mutation_rate)
-Selects a random timeslot in it a timetable and randomly changes/mutates it.
+Selects a random timeslot in a timetable and randomly changes/mutates it.
 
 ### def run_ga(N, K, M, E, pop_size, generations, crossover_rate, mutation_rate, tournament_size):
 Takes in N, K, M, E and all the parameters.
-Runs the genetic algorithim using all the funtions previoulsy mentioned.
+Runs the genetic algorithim using all the funtions previously mentioned.
+- initialize population
+- track thebest fitness and the best solution (elitism)
+- repeat for specified generations
+  - evaluate fitness of all solutions
+  - Update best solution if needed
+  - Record best fitness
+  - Create a new population starting with the best solution (elitism)
+  - Select parents and generate children accordingly
+  - Apply mutation
+  - replace old population with the new one
+
 
 ### def main()
 Sets up three different parameter settings Conservative, Balanced and Exploratory. Changing the filename variabel is how someone chooses which testcase to run. The code runs the slected test case with with each parameter setting three times in order to evaluate consistency. The testing captures the mean fitness and standard deviation for each run. The stats for best singular run alongside the overall best and worst parameter settings are all printed. A plot of generations over best fitness is then made
